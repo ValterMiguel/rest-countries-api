@@ -1,26 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="nav">
+    <div class="nav-logo">Where in the world?</div>
+    <div class="nav-mode" @click="SwitchTheme()">
+      <span class="flaticon-night"></span>
+      Dark Mode
+    </div>
+  </div>
+  <router-view />
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  data() {
+    return {};
+  },
+  methods: {
+    showPage() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("app").style.display = "block";
+    },
+    loading() {
+      this.myLoader = setTimeout(this.showPage, 4000);
+    },
+    SwitchTheme() {
+      let element = document.body;
+      element.classList.toggle("theme-dark");
+    },
+  },
+};
 </script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
