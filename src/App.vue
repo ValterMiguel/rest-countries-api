@@ -1,32 +1,40 @@
 <template>
-  <div id="nav">
-    <div class="nav-logo">Where in the world?</div>
-    <div class="nav-mode" @click="SwitchTheme()">
-      <span class="flaticon-night"></span>
-      Dark Mode
-    </div>
+  <div class="app" :class="{ 'theme-dark': nightMode }">
+    <nav class="navbar fixed-top navbar-expand-lg">
+      <div class="container">
+        <a>
+          <strong>Where in the world?</strong>
+        </a>
+
+        <a @click="nightMode = !nightMode">
+          <strong>
+            <i class="flaticon-night"></i>
+            Dark Mode
+          </strong>
+        </a>
+      </div>
+    </nav>
+    <!-- Navbar -->
+    <router-view />
   </div>
-  <router-view />
 </template>
 <script>
 export default {
   data() {
-    return {};
+    return {
+      nightMode: false,
+      isLoading: true,
+    };
   },
-  methods: {
-    showPage() {
-      document.getElementById("loader").style.display = "none";
-      document.getElementById("app").style.display = "block";
+  methods: {},
+  watch: {
+    nightMode: function() {
+      localStorage.setItem("nightMode", JSON.stringify(this.nightMode));
     },
-    loading() {
-      this.myLoader = setTimeout(this.showPage, 4000);
-    },
-    SwitchTheme() {
-      let element = document.body;
-      element.classList.toggle("theme-dark");
-    },
+  },
+  created() {
+    this.nightMode = JSON.parse(localStorage.getItem("nightMode"));
   },
 };
 </script>
-<style>
-</style>
+<style></style>
